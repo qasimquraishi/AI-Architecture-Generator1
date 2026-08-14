@@ -333,7 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const response =
                 await fetch(
-                    "http://localhost:3000/api/generate-architecture",
+                    "https://ai-architecture-backend.vercel.app/api/generate-architecture",
                     {
                         method: "POST",
 

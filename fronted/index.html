@@ -239,7 +239,7 @@ async function callAI(data,output,loading){
  loading.classList.add("show");output.style.display="none";output.innerHTML="";
  try{
   const payload={...data,architectureBrief:buildArchitectureBrief(data),outputOrder:["2D measured floor plan","realistic 3D house render"]};
-  const r=await fetch("http://localhost:3000/api/generate-architecture",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+  const r=await fetch("https://ai-architecture-backend.vercel.app/api/generate-architecture",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
   const j=await r.json();
   if(!r.ok)throw new Error(j.error||"AI server error");
 
@@ -258,7 +258,7 @@ async function callAI(data,output,loading){
   }
   output.style.display="block";
  }catch(e){
-  const body=document.createElement("div");body.className="result-text";body.textContent="AI generation could not be completed.\n\n"+e.message+"\n\nCheck that the backend is running on http://localhost:3000 and that Gemini/API access is available.";
+  const body=document.createElement("div");body.className="result-text";body.textContent="AI generation could not be completed.\n\n"+e.message+"\n\nCheck that the backend is running on https://ai-architecture-backend.vercel.app and that Gemini/API access is available.";
   output.appendChild(body);output.style.display="block";
  }finally{loading.classList.remove("show")}
 }
