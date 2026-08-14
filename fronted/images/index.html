@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Archi Generator | AI Architecture</title>
+
+    <link rel="stylesheet" href="style.css?v=20260813">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+            <div class="logo-mark">
+                <i class="fa-solid fa-building"></i>
+            </div>
+
+            <div>
+                <div class="logo-title">ARCHI</div>
+                <div class="logo-subtitle">GENERATOR</div>
+            </div>
+        </div>
+
+        <nav class="navigation">
+
+            <button class="nav-item active" data-page="dashboard">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </button>
+
+            <button class="nav-item" data-page="projects">
+                <i class="fa-regular fa-folder-open"></i>
+                <span>Projects</span>
+            </button>
+
+            <button class="nav-item" data-page="generate">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>Generate Design</span>
+            </button>
+
+            <button class="nav-item" data-page="gallery">
+                <i class="fa-regular fa-images"></i>
+                <span>Gallery</span>
+            </button>
+
+            <button class="nav-item" data-page="packages">
+                <i class="fa-solid fa-box"></i>
+                <span>Packages</span>
+            </button>
+
+            <button class="nav-item" data-page="about">
+                <i class="fa-regular fa-user"></i>
+                <span>About Us</span>
+            </button>
+
+            <button class="nav-item" data-page="how">
+                <i class="fa-solid fa-diagram-project"></i>
+                <span>How It Works</span>
+            </button>
+
+            <button class="nav-item" data-page="contact">
+                <i class="fa-regular fa-envelope"></i>
+                <span>Contact</span>
+            </button>
+
+        </nav>
+
+        <!-- PREMIUM CARD -->
+
+        <div class="premium-card">
+
+            <div class="premium-icon">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+
+            <h3>Upgrade to Premium</h3>
+
+            <p>
+                Get unlimited designs, priority support
+                and advanced AI features.
+            </p>
+
+            <button class="gold-button" data-page="packages">
+                View Packages
+            </button>
+
+        </div>
+
+        <!-- USER -->
+
+        <div class="user-card">
+
+            <div class="user-avatar">
+                MQ
+            </div>
+
+            <div class="user-info">
+                <strong>Muhammad Qasim</strong>
+                <span>Free Plan</span>
+            </div>
+
+            <i class="fa-solid fa-chevron-down"></i>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <button class="menu-button" id="menuButton">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="topbar-right">
+
+                <button class="theme-button" id="themeButton">
+                    <i class="fa-regular fa-sun"></i>
+                </button>
+
+                <button class="login-button">
+                    Log In / Sign Up
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= PAGES ================= -->
+
+        <div class="pages">
+
+
+            <!-- ================================================= -->
+            <!-- DASHBOARD -->
+            <!-- ================================================= -->
+
+            <section class="page active-page" id="dashboard">
+
+                <!-- HERO -->
+
+                <div class="hero">
+
+                    <div class="hero-overlay"></div>
+
+                    <div class="hero-content">
+
+                        <span class="eyebrow">
+                            AI-POWERED ARCHITECTURE
+                        </span>
+
+                        <h1>
+                            Design Smarter.<br>
+                            Build Better.
+                        </h1>
+
+                        <p>
+                            Generate professional architectural
+                            concepts instantly with the power of AI.
+                        </p>
+
+                        <div class="hero-buttons">
+
+                            <button
+                                class="gold-button large"
+                                data-page="generate"
+                            >
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                Generate Architecture
+                            </button>
+
+                            <button
+                                class="outline-button large"
+                                data-page="gallery"
+                            >
+                                <i class="fa-regular fa-images"></i>
+                                View Gallery
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- INSPIRATION -->
+
+                <div class="section">
+
+                    <div class="section-header">
+
+                        <div>
+                            <span class="section-label">
+                                INSPIRATION
+                            </span>
+
+                            <h2>
+                                Explore Architectural Ideas
+                            </h2>
+                        </div>
+
+                        <button
+                            class="text-button"
+                            data-page="gallery"
+                        >
+                            View All
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                    </div>
+
+
+                    <div class="inspiration-grid">
+
+                        <article class="image-card">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=85"
+                                alt="Modern front elevation"
+                            >
+
+                            <div class="image-card-content">
+
+                                <h3>Front Elevations</h3>
+
+                                <p>
+                                    Modern & stunning facade designs
+                                </p>
+
+                            </div>
+
+                        </article>
+
+
+                        <article class="image-card">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=85"
+                                alt="Luxury living room"
+                            >
+
+                            <div class="image-card-content">
+
+                                <h3>Living Rooms</h3>
+
+                                <p>
+                                    Elegant & comfortable living spaces
+                                </p>
+
+                            </div>
+
+                        </article>
+
+
+                        <article class="image-card">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=85"
+                                alt="Bedroom interior"
+                            >
+
+                            <div class="image-card-content">
+
+                                <h3>Bedrooms</h3>
+
+                                <p>
+                                    Stylish & relaxing bedroom interiors
+                                </p>
+
+                            </div>
+
+                        </article>
+
+
+                        <article class="image-card">
+
+                            <img
+                                src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=85"
+                                alt="Modern kitchen"
+                            >
+
+                            <div class="image-card-content">
+
+                                <h3>Kitchens</h3>
+
+                                <p>
+                                    Functional & modern kitchen designs
+                                </p>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+
+                <!-- GENERATOR + FEATURES -->
+
+                <div class="dashboard-grid">
+
+                    <!-- GENERATOR -->
+
+                    <div class="panel generator-panel">
+
+                        <div class="panel-heading">
+
+                            <span class="section-label">
+                                AI DESIGN TOOL
+                            </span>
+
+                            <h2>
+                                Generate Your Architecture
+                            </h2>
+
+                            <p>
+                                Provide your project details and our AI
+                                will create a professional architectural
+                                concept.
+                            </p>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+                            <div class="field">
+
+                                <label>Property Size</label>
+
+                                <select id="propertySize">
+                                    <option value="">Select Size</option>
+                                    <option value="5 Marla">5 Marla</option>
+                                    <option value="6 Marla">6 Marla</option>
+                                    <option value="7 Marla">7 Marla</option>
+                                    <option value="8 Marla">8 Marla</option>
+                                    <option value="10 Marla">10 Marla</option>
+                                    <option value="1 Kanal">1 Kanal</option>
+                                    <option value="2 Kanal">2 Kanal</option>
+                                    <option value="3 Kanal">3 Kanal</option>
+                                    <option value="4 Kanal">4 Kanal</option>
+                                </select>
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>Floors</label>
+
+                                <select id="floors">
+                                    <option value="">Select Floors</option>
+                                    <option value="1 Floor">1 Floor</option>
+                                    <option value="2 Floors">2 Floors</option>
+                                    <option value="3 Floors">3 Floors</option>
+                                    <option value="4 Floors">4 Floors</option>
+                                    <option value="5 Floors">5 Floors</option>
+                                </select>
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>Bedrooms</label>
+
+                                <select id="bedrooms">
+                                    <option value="">Select Bedrooms</option>
+                                    <option value="1 Bedroom">1 Bedroom</option>
+                                    <option value="2 Bedrooms">2 Bedrooms</option>
+                                    <option value="3 Bedrooms">3 Bedrooms</option>
+                                    <option value="4 Bedrooms">4 Bedrooms</option>
+                                    <option value="5 Bedrooms">5 Bedrooms</option>
+                                    <option value="6 Bedrooms">6 Bedrooms</option>
+                                </select>
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>Bathrooms</label>
+
+                                <select id="bathrooms">
+                                    <option value="">Select Bathrooms</option>
+                                    <option value="1 Bathroom">1 Bathroom</option>
+                                    <option value="2 Bathrooms">2 Bathrooms</option>
+                                    <option value="3 Bathrooms">3 Bathrooms</option>
+                                    <option value="4 Bathrooms">4 Bathrooms</option>
+                                    <option value="5 Bathrooms">5 Bathrooms</option>
+                                    <option value="6 Bathrooms">6 Bathrooms</option>
+                                </select>
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>Kitchens</label>
+
+                                <select id="kitchens">
+                                    <option value="1 Kitchen">1 Kitchen</option>
+                                    <option value="2 Kitchens">2 Kitchens</option>
+                                    <option value="3 Kitchens">3 Kitchens</option>
+                                </select>
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>Parking</label>
+
+                                <select id="parking">
+                                    <option value="">Select Parking</option>
+                                    <option value="1 Vehicle">1 Vehicle</option>
+                                    <option value="2 Vehicles">2 Vehicles</option>
+                                    <option value="3 Vehicles">3 Vehicles</option>
+                                    <option value="4 Vehicles">4 Vehicles</option>
+                                </select>
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>Architectural Style</label>
+
+                                <select id="style">
+
+                                    <option value="">
+                                        Select Style
+                                    </option>
+
+                                    <option value="Modern Minimalist">
+                                        Modern Minimalist
+                                    </option>
+
+                                    <option value="Contemporary">
+                                        Contemporary
+                                    </option>
+
+                                    <option value="Luxury Modern">
+                                        Luxury Modern
+                                    </option>
+
+                                    <option value="Traditional">
+                                        Traditional
+                                    </option>
+
+                                    <option value="Mediterranean">
+                                        Mediterranean
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    Additional Requirements
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="requirements"
+                                    placeholder="e.g. rooftop garden, study room..."
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="gold-button generate-button"
+                            id="generateBtn"
+                        >
+
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                            Generate Architecture
+
+                        </button>
+
+
+                        <div
+                            class="loading hidden"
+                            id="loading"
+                        >
+                            <div class="spinner"></div>
+
+                            <span>
+                                AI is preparing your architectural concept...
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="result hidden"
+                            id="result"
+                        >
+
+                            <div class="result-header">
+
+                                <h3>
+                                    AI Architectural Concept
+                                </h3>
+
+                                <button
+                                    id="copyResult"
+                                    class="small-button"
+                                >
+                                    <i class="fa-regular fa-copy"></i>
+                                    Copy
+                                </button>
+
+                            </div>
+
+                            <pre id="resultContent"></pre>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FEATURES -->
+
+                    <div class="right-column">
+
+                        <div class="panel">
+
+                            <div class="panel-heading">
+
+                                <span class="section-label">
+                                    WHY ARCHI GENERATOR
+                                </span>
+
+                                <h2>
+                                    Why Choose Us?
+                                </h2>
+
+                            </div>
+
+
+                            <div class="feature-list">
+
+                                <div class="feature">
+
+                                    <div class="feature-icon">
+                                        <i class="fa-solid fa-microchip"></i>
+                                    </div>
+
+                                    <div>
+                                        <h3>AI-Powered</h3>
+                                        <p>
+                                            Advanced AI creates smart
+                                            architectural concepts.
+                                        </p>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="feature">
+
+                                    <div class="feature-icon">
+                                        <i class="fa-solid fa-pen-ruler"></i>
+                                    </div>
+
+                                    <div>
+                                        <h3>Professional Concepts</h3>
+                                        <p>
+                                            Well-planned concepts based
+                                            on architectural principles.
+                                        </p>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="feature">
+
+                                    <div class="feature-icon">
+                                        <i class="fa-regular fa-clock"></i>
+                                    </div>
+
+                                    <div>
+                                        <h3>Save Time</h3>
+                                        <p>
+                                            Generate concepts quickly
+                                            and speed up your workflow.
+                                        </p>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="feature">
+
+                                    <div class="feature-icon">
+                                        <i class="fa-solid fa-shield-halved"></i>
+                                    </div>
+
+                                    <div>
+                                        <h3>Reliable</h3>
+                                        <p>
+                                            High-quality output suitable
+                                            for planning and visualization.
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="stats-panel">
+
+                            <div class="stat">
+                                <strong>2,500+</strong>
+                                <span>Happy Users</span>
+                            </div>
+
+                            <div class="stat">
+                                <strong>5,800+</strong>
+                                <span>Projects</span>
+                            </div>
+
+                            <div class="stat">
+                                <strong>98%</strong>
+                                <span>Satisfaction</span>
+                            </div>
+
+                            <div class="stat">
+                                <strong>24/7</strong>
+                                <span>Support</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- PROJECTS -->
+            <!-- ================================================= -->
+
+            <section class="page" id="projects">
+
+                <div class="page-header">
+
+                    <span class="section-label">
+                        WORKSPACE
+                    </span>
+
+                    <h1>My Projects</h1>
+
+                    <p>
+                        Manage and review your architectural projects.
+                    </p>
+
+                </div>
+
+
+                <div class="empty-project">
+
+                    <div class="empty-icon">
+                        <i class="fa-regular fa-folder-open"></i>
+                    </div>
+
+                    <h2>No Projects Yet</h2>
+
+                    <p>
+                        Your generated architectural projects
+                        will appear here.
+                    </p>
+
+                    <button
+                        class="gold-button"
+                        data-page="generate"
+                    >
+                        Create New Project
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- GENERATE -->
+            <!-- ================================================= -->
+
+            <section class="page" id="generate">
+
+                <div class="page-header">
+
+                    <span class="section-label">
+                        AI DESIGN STUDIO
+                    </span>
+
+                    <h1>Generate Design</h1>
+
+                    <p>
+                        Create a new architectural concept
+                        using your project requirements.
+                    </p>
+
+                </div>
+
+
+                <div class="generate-page-card">
+
+                    <div class="generate-visual">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1200&q=85"
+                            alt="Modern architecture"
+                        >
+
+                    </div>
+
+                    <div class="generate-info">
+
+                        <h2>
+                            Start Your Architectural Project
+                        </h2>
+
+                        <p>
+                            Select your requirements and let AI
+                            prepare your preliminary concept.
+                        </p>
+
+                        <button
+                            class="gold-button"
+                            id="generateFromPage"
+                        >
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            Start Generating
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- GALLERY -->
+            <!-- ================================================= -->
+
+            <section class="page" id="gallery">
+
+                <div class="page-header">
+
+                    <span class="section-label">
+                        INSPIRATION
+                    </span>
+
+                    <h1>Architecture Gallery</h1>
+
+                    <p>
+                        Explore modern architectural concepts,
+                        interiors and elevations.
+                    </p>
+
+                </div>
+
+
+                <div class="gallery-grid">
+
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=85">
+                        <span>Modern Kitchen</span>
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=85">
+                        <span>Luxury Living Room</span>
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1000&q=85">
+                        <span>Bedroom Interior</span>
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1000&q=85">
+                        <span>Modern Residence</span>
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1000&q=85">
+                        <span>Contemporary Interior</span>
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1000&q=85">
+                        <span>Luxury Bedroom</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- PACKAGES -->
+            <!-- ================================================= -->
+
+            <section class="page" id="packages">
+
+                <div class="page-header center">
+
+                    <span class="section-label">
+                        PRICING
+                    </span>
+
+                    <h1>Choose Your Package</h1>
+
+                    <p>
+                        Select the plan that fits your architectural needs.
+                    </p>
+
+                </div>
+
+
+                <div class="pricing-grid">
+
+                    <div class="price-card">
+
+                        <span class="price-name">
+                            FREE
+                        </span>
+
+                        <h2>
+                            PKR 0
+                        </h2>
+
+                        <p>
+                            For exploring the platform.
+                        </p>
+
+                        <ul>
+                            <li>3 AI concepts</li>
+                            <li>Basic architectural concepts</li>
+                            <li>Gallery access</li>
+                            <li>Standard support</li>
+                        </ul>
+
+                        <button
+                            class="outline-button full"
+                        >
+                            Current Plan
+                        </button>
+
+                    </div>
+
+
+                    <div class="price-card featured">
+
+                        <div class="popular">
+                            MOST POPULAR
+                        </div>
+
+                        <span class="price-name">
+                            PROFESSIONAL
+                        </span>
+
+                        <h2>
+                            PKR 4,999
+                            <small>/month</small>
+                        </h2>
+
+                        <p>
+                            For professionals and active projects.
+                        </p>
+
+                        <ul>
+                            <li>50 AI concepts</li>
+                            <li>Advanced architectural concepts</li>
+                            <li>Priority generation</li>
+                            <li>Project history</li>
+                            <li>Priority support</li>
+                        </ul>
+
+                        <button class="gold-button full">
+                            Choose Professional
+                        </button>
+
+                    </div>
+
+
+                    <div class="price-card">
+
+                        <span class="price-name">
+                            PREMIUM
+                        </span>
+
+                        <h2>
+                            PKR 9,999
+                            <small>/month</small>
+                        </h2>
+
+                        <p>
+                            For studios and architectural businesses.
+                        </p>
+
+                        <ul>
+                            <li>Unlimited concepts</li>
+                            <li>Advanced AI features</li>
+                            <li>Project management</li>
+                            <li>Premium support</li>
+                            <li>Commercial usage</li>
+                        </ul>
+
+                        <button class="gold-button full">
+                            Choose Premium
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- ABOUT -->
+            <!-- ================================================= -->
+
+            <section class="page" id="about">
+
+                <div class="page-header">
+
+                    <span class="section-label">
+                        ABOUT ARCHI GENERATOR
+                    </span>
+
+                    <h1>Architecture Powered by AI</h1>
+
+                    <p>
+                        Archi Generator combines architectural thinking
+                        with modern artificial intelligence.
+                    </p>
+
+                </div>
+
+
+                <div class="about-grid">
+
+                    <div class="about-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85"
+                            alt="Modern house"
+                        >
+
+                    </div>
+
+                    <div class="about-content">
+
+                        <h2>
+                            Turning Ideas Into Architectural Concepts
+                        </h2>
+
+                        <p>
+                            Our platform helps users transform property
+                            requirements into structured preliminary
+                            architectural concepts.
+                        </p>
+
+                        <p>
+                            Users can provide plot size, floors, bedrooms,
+                            bathrooms, parking requirements and architectural
+                            style.
+                        </p>
+
+                        <p>
+                            The AI then prepares a professional concept
+                            that can be reviewed and refined by an
+                            architect.
+                        </p>
+
+                        <div class="warning-box">
+
+                            <strong>
+                                Professional Review Required
+                            </strong>
+
+                            <p>
+                                AI-generated concepts are preliminary
+                                and must be reviewed by a qualified
+                                architect or structural engineer before
+                                construction.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- HOW IT WORKS -->
+            <!-- ================================================= -->
+
+            <section class="page" id="how">
+
+                <div class="page-header center">
+
+                    <span class="section-label">
+                        SIMPLE PROCESS
+                    </span>
+
+                    <h1>How It Works</h1>
+
+                    <p>
+                        Create your architectural concept in four steps.
+                    </p>
+
+                </div>
+
+
+                <div class="steps-grid">
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <i class="fa-solid fa-list-check"></i>
+
+                        <h2>Enter Requirements</h2>
+
+                        <p>
+                            Tell us your plot size, floors,
+                            rooms and other requirements.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                        <h2>AI Generation</h2>
+
+                        <p>
+                            Our AI processes the project
+                            requirements and creates a concept.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <i class="fa-solid fa-house"></i>
+
+                        <h2>Review Concept</h2>
+
+                        <p>
+                            Review the generated architectural
+                            concept and design direction.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            04
+                        </div>
+
+                        <i class="fa-solid fa-pen-ruler"></i>
+
+                        <h2>Professional Development</h2>
+
+                        <p>
+                            A professional architect can refine
+                            the concept into construction drawings.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- CONTACT -->
+            <!-- ================================================= -->
+
+            <section class="page" id="contact">
+
+                <div class="page-header center">
+
+                    <span class="section-label">
+                        GET IN TOUCH
+                    </span>
+
+                    <h1>Contact Us</h1>
+
+                    <p>
+                        Have a question about Archi Generator?
+                        We'd love to hear from you.
+                    </p>
+
+                </div>
+
+
+                <div class="contact-card">
+
+                    <div class="contact-info">
+
+                        <h2>
+                            Let's Talk Architecture
+                        </h2>
+
+                        <p>
+                            Contact our team for questions,
+                            partnerships and professional services.
+                        </p>
+
+                        <div class="contact-line">
+                            <i class="fa-regular fa-envelope"></i>
+                            <span>support@archigenerator.com</span>
+                        </div>
+
+                        <div class="contact-line">
+                            <i class="fa-solid fa-phone"></i>
+                            <span>+92 XXX XXXXXXX</span>
+                        </div>
+
+                    </div>
+
+
+                    <form id="contactForm">
+
+                        <div class="field">
+
+                            <label>Your Name</label>
+
+                            <input
+                                type="text"
+                                id="contactName"
+                                required
+                                placeholder="Enter your name"
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>Email</label>
+
+                            <input
+                                type="email"
+                                id="contactEmail"
+                                required
+                                placeholder="Enter your email"
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>Message</label>
+
+                            <textarea
+                                id="contactMessage"
+                                required
+                                placeholder="Write your message..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <button
+                            class="gold-button full"
+                            type="submit"
+                        >
+                            Send Message
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <footer>
+
+            © 2026 Archi Generator.
+            All rights reserved.
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script src="app.js?v=20260813"></script>
+
+</body>
+</html>

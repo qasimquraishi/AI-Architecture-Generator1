@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archi Generator — AI Architecture</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#e9b94d;--gold2:#f3ca68;--bg:#080b0d;--panel:#111518;--panel2:#171b1f;--text:#f5f5f2;--muted:#a8adb1;--line:rgba(255,255,255,.12)}
+html,body{width:100%;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+body{overflow-x:hidden}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{min-height:100vh;background:radial-gradient(circle at 75% 15%,rgba(233,185,77,.08),transparent 30%),#080b0d}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:218px;background:linear-gradient(180deg,#0b0f11,#080b0d);border-right:1px solid var(--line);z-index:50;padding:24px 20px;display:flex;flex-direction:column}
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:38px}.logo-mark{width:38px;height:38px;border:2px solid var(--gold);border-radius:9px;display:grid;place-items:center;color:var(--gold);font-size:20px}
+.logo strong{font-size:24px;line-height:.9;letter-spacing:1.5px}.logo span{display:block;color:var(--gold);font-size:10px;letter-spacing:3px;margin-top:5px}
+.nav{display:grid;gap:8px}.nav button{border:0;background:transparent;color:#e6e6e3;text-align:left;padding:12px 13px;border-radius:9px;font-size:14px;display:flex;align-items:center;gap:12px;transition:.2s}
+.nav button:hover,.nav button.active{background:rgba(233,185,77,.14);color:var(--gold2)}.nav i{width:18px;text-align:center}
+.premium{margin-top:auto;border:1px solid var(--line);border-radius:12px;padding:18px 14px;background:linear-gradient(145deg,#171a1d,#0c0f11)}
+.premium .crown{color:var(--gold);font-size:24px;margin-bottom:8px}.premium h3{font-size:15px;margin-bottom:7px}.premium p{color:#aeb2b4;font-size:12px;line-height:1.6;margin-bottom:14px}
+.gold-btn{border:0;background:linear-gradient(135deg,var(--gold2),#dca83d);color:#0c0d0e;font-weight:800;border-radius:8px;padding:11px 15px}
+.profile{margin-top:16px;border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;gap:10px;align-items:center}.avatar{width:34px;height:34px;border-radius:50%;border:1px solid #666;display:grid;place-items:center;color:#ddd}.profile b{font-size:12px}.profile small{color:var(--gold);font-size:10px}
+.main{margin-left:218px;min-height:100vh}.topbar{height:66px;position:fixed;left:218px;right:0;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:linear-gradient(180deg,rgba(7,10,12,.9),rgba(7,10,12,.25),transparent);pointer-events:none}.topbar>*{pointer-events:auto}
+.menu{display:none;border:0;background:rgba(0,0,0,.4);color:white;font-size:22px;border-radius:8px;padding:8px 11px}.login{border:1px solid rgba(255,255,255,.15);background:var(--gold2);color:#111;border-radius:9px;padding:11px 17px;font-weight:800}
+.view{display:none;min-height:100vh;padding:88px 26px 40px}.view.active{display:block}.hero{min-height:590px;margin:0 0 18px;border-radius:0 0 18px 18px;position:relative;overflow:hidden;background:linear-gradient(90deg,rgba(4,7,9,.93) 0%,rgba(4,7,9,.72) 35%,rgba(4,7,9,.12) 72%,rgba(4,7,9,.15)),url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=90") center/cover}
+.hero:after{content:"";position:absolute;inset:auto 0 0;height:42%;background:linear-gradient(transparent,#080b0d)}.hero-content{position:relative;z-index:2;padding:92px 42px;max-width:620px}
+.badge{display:inline-block;padding:7px 12px;border-radius:99px;background:rgba(233,185,77,.18);border:1px solid rgba(233,185,77,.35);color:#f5cc73;font-size:11px;font-weight:700;margin-bottom:18px}
+.hero h1{font-size:56px;line-height:1.02;letter-spacing:-2px;margin-bottom:18px}.hero p{font-size:17px;line-height:1.6;color:#e0e2e1;max-width:520px}
+.actions{display:flex;gap:12px;margin-top:26px}.outline{border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.35);color:#fff;border-radius:9px;padding:12px 18px;font-weight:700}
+.section-title{font-size:22px;margin:26px 0 14px}.gold{color:var(--gold)}.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.card{background:linear-gradient(180deg,#171b1e,#101416);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.2s}.card:hover{transform:translateY(-2px);border-color:rgba(233,185,77,.35)}
+.card img{width:100%;height:180px;object-fit:cover;display:block}.card-body{padding:14px}.card-body h3{font-size:14px;margin-bottom:5px}.card-body p{color:var(--muted);font-size:12px;line-height:1.5}
+.dashboard-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:14px;margin-top:16px}.panel{background:linear-gradient(180deg,#14191c,#0f1315);border:1px solid var(--line);border-radius:12px;padding:20px}.panel h2{font-size:18px;margin-bottom:8px}.panel>p{color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:16px}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.field{display:flex;flex-direction:column;gap:7px}.field label{font-size:11px;color:#c5c8c9;font-weight:700}.field input,.field select,.field textarea{width:100%;background:#0a0d0f;border:1px solid #30363a;color:#f3f3f0;border-radius:8px;padding:11px 12px;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(233,185,77,.65)}.field textarea{min-height:95px;resize:vertical}.span2{grid-column:span 2}.form-action{margin-top:16px}.loading{display:none;color:var(--gold);font-size:12px;margin-top:12px}.loading.show{display:block}
+.features{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:10px;overflow:hidden}.feature{padding:17px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.feature:nth-child(2n){border-right:0}.feature:nth-child(3),.feature:nth-child(4){border-bottom:0}.feature i{color:var(--gold);font-style:normal;font-size:20px}.feature h4{font-size:13px;margin:7px 0}.feature p{color:var(--muted);font-size:11px;line-height:1.5}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:14px}.stat{padding:16px;text-align:center;border-right:1px solid var(--line)}.stat:last-child{border-right:0}.stat b{display:block;color:var(--gold);font-size:18px}.stat span{color:var(--muted);font-size:10px}
+.page-head{margin-bottom:18px}.page-head h1{font-size:32px;margin-bottom:8px}.page-head p{color:var(--muted);font-size:13px;line-height:1.6}
+.gallery-grid,.package-grid,.info-grid,.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.package-grid{grid-template-columns:repeat(3,1fr)}.package ul{list-style:none;margin:15px 0;display:grid;gap:9px}.package li{color:var(--muted);font-size:12px}.package li:before{content:"✓";color:var(--gold);margin-right:8px}.price{font-size:26px;font-weight:800;margin-top:8px}.price small{font-size:11px;color:var(--muted)}.featured{border-color:rgba(233,185,77,.45)}.info-grid{grid-template-columns:1fr 1fr}.info-grid .panel p{margin:0}.step{display:flex;gap:14px;padding:18px;border:1px solid var(--line);border-radius:11px;background:#111518}.num{width:35px;height:35px;border-radius:50%;background:rgba(233,185,77,.15);color:var(--gold);display:grid;place-items:center;font-weight:800;flex:none}.step h3{font-size:14px;margin-bottom:5px}.step p{color:var(--muted);font-size:12px;line-height:1.5}.contact-grid{grid-template-columns:1fr 1fr}.contact-company-phone{margin-top:8px}
+.result-box{background:#0a0d0f;border:1px solid #30363a;border-radius:10px;padding:18px;line-height:1.7;color:#ddd;max-height:900px;overflow:auto;font-size:13px}.result-image-section{margin-bottom:22px}.result-image-section h3{color:var(--gold);font-size:16px;margin-bottom:10px}.result-image-section img{width:100%;max-height:850px;object-fit:contain;background:#070909;border:1px solid #30363a;border-radius:10px;display:block}.result-text{white-space:pre-wrap;color:#ddd}.result-note{color:#8f969a;font-size:11px;margin-top:8px}
+@media(max-width:1050px){.cards{grid-template-columns:repeat(3,1fr)}.dashboard-grid{grid-template-columns:1fr}.hero h1{font-size:46px}.form-grid{grid-template-columns:repeat(2,1fr)}.package-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.sidebar{transform:translateX(-100%);transition:.25s;width:245px}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.topbar{left:0}.menu{display:block}.view{padding:82px 14px 30px}.hero{min-height:540px;border-radius:0 0 13px 13px}.hero-content{padding:90px 22px}.hero h1{font-size:40px}.cards,.gallery-grid,.package-grid,.info-grid,.contact-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.span2{grid-column:auto}.features,.stats{grid-template-columns:1fr 1fr}}
+/* Existing signup function preserved */
+.signup-modal-fixed{display:none;position:fixed!important;inset:0!important;z-index:2147483647!important;background:rgba(0,0,0,.72)!important;align-items:center!important;justify-content:center!important;padding:20px!important}.signup-modal-fixed.open{display:flex!important}
+.signup-box-fixed{position:relative!important;width:min(430px,100%)!important;background:#fff!important;color:#171717!important;border-radius:18px!important;padding:30px!important;box-sizing:border-box!important;box-shadow:0 24px 70px rgba(0,0,0,.4)!important}.signup-box-fixed h2{margin:0 0 8px!important;color:#171717!important}.signup-box-fixed p{margin:0 0 18px!important;color:#666!important}.signup-box-fixed form{display:grid!important;gap:11px!important}.signup-box-fixed input{width:100%!important;box-sizing:border-box!important;padding:13px!important;border:1px solid #ddd!important;border-radius:9px!important;background:#fff!important;color:#111!important}.signup-box-fixed form button{padding:13px!important;border:0!important;border-radius:9px!important;background:#111!important;color:#fff!important;cursor:pointer!important;font-weight:700!important}.signup-x-fixed{position:absolute!important;right:12px!important;top:8px!important;border:0!important;background:transparent!important;color:#555!important;font-size:30px!important;cursor:pointer!important}.signup-status-fixed{min-height:20px!important;margin-top:12px!important;font-size:14px!important}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+<div class="logo"><div class="logo-mark">⌂</div><div><strong>ARCHI</strong><span>GENERATOR</span></div></div>
+<nav class="nav">
+<button class="active" data-view="dashboard"><i>⌂</i>Dashboard</button>
+<button data-view="projects"><i>▣</i>Projects</button>
+<button data-view="generate"><i>✦</i>Generate Design</button>
+<button data-view="gallery"><i>▧</i>Gallery</button>
+<button data-view="packages"><i>♕</i>Packages</button>
+<button data-view="about"><i>♙</i>About Us</button>
+<button data-view="how"><i>✧</i>How It Works</button>
+<button data-view="contact"><i>✉</i>Contact</button>
+</nav>
+<div class="premium"><div class="crown">♛</div><h3>Upgrade to Premium</h3><p>Get unlimited designs, priority support and advanced AI features.</p><button class="gold-btn" data-view="packages">View Packages</button></div>
+<div class="profile"><div class="avatar">MQ</div><div><b>Muhammad Qasim</b><br><small>Free Plan</small></div></div>
+</aside>
+
+<main class="main">
+<header class="topbar"><button class="menu" id="menu">☰</button><button class="login" id="signupTrigger">Log In / Sign Up</button></header>
+
+<section class="view active" id="dashboard">
+<div class="hero"><div class="hero-content"><span class="badge">AI-Powered Architecture</span><h1>Design Smarter.<br>Build Better.</h1><p>Generate professional architectural concepts instantly with the power of AI.</p><div class="actions"><button class="gold-btn" data-view="generate">✦ Generate Architecture</button><button class="outline" data-view="gallery">▧ View Gallery</button></div></div></div>
+<h2 class="section-title">Inspiration</h2>
+<div class="cards">
+<div class="card"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85"><div class="card-body"><h3>Front Elevations</h3><p>Modern & stunning facade designs</p></div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=85"><div class="card-body"><h3>Living Rooms</h3><p>Elegant & comfortable living spaces</p></div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=85"><div class="card-body"><h3>Bedrooms</h3><p>Stylish & relaxing bedroom interiors</p></div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=85"><div class="card-body"><h3>Kitchens</h3><p>Functional & modern kitchen designs</p></div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=900&q=85"><div class="card-body"><h3>More Inspiration</h3><p>Explore more ideas in our gallery</p></div></div>
+</div>
+</section>
+
+<section class="view" id="projects"><div class="page-head"><h1>Projects</h1><p>Your architectural projects and generated concepts will appear here.</p></div><div class="gallery-grid">
+<div class="card"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1000&q=85"><div class="card-body"><h3>Modern Residence</h3><p>Contemporary residential concept</p></div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1000&q=85"><div class="card-body"><h3>Luxury Interior</h3><p>Premium living space</p></div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=85"><div class="card-body"><h3>Villa Elevation</h3><p>Modern front elevation</p></div></div>
+</div></section>
+
+<section class="view" id="generate">
+<div class="page-head"><h1>Generate <span class="gold">Design</span></h1><p>Enter exact plot and house requirements. The AI workflow is instructed to create the 2D measured floor plan first, then a realistic 3D render from the same layout.</p></div>
+<div class="panel">
+<div class="form-grid">
+<div class="field"><label>House / Property Size</label><select id="gSize"><option>5 Marla</option><option>6 Marla</option><option>10 Marla</option><option>1 Kanal</option><option>2 Kanal</option><option>3 Kanal</option><option>4 Kanal</option></select></div>
+<div class="field"><label>Plot Length (ft)</label><input type="number" id="gLength" min="1" placeholder="e.g. 45"></div>
+<div class="field"><label>Plot Width (ft)</label><input type="number" id="gWidth" min="1" placeholder="e.g. 30"></div>
+<div class="field"><label>Number of Floors</label><select id="gFloors"><option>1 Floor</option><option>2 Floors</option><option>3 Floors</option><option>4 Floors</option><option>5 Floors</option></select></div>
+<div class="field"><label>Bedrooms</label><select id="gBeds"><option>1 Bedroom</option><option>2 Bedrooms</option><option selected>3 Bedrooms</option><option>4 Bedrooms</option><option>5 Bedrooms</option><option>6 Bedrooms</option></select></div>
+<div class="field"><label>Bathrooms</label><select id="gBaths"><option>1 Bathroom</option><option>2 Bathrooms</option><option selected>3 Bathrooms</option><option>4 Bathrooms</option><option>5 Bathrooms</option><option>6 Bathrooms</option></select></div>
+<div class="field"><label>Kitchens</label><select id="gKitchen"><option>1 Kitchen</option><option>2 Kitchens</option><option>3 Kitchens</option></select></div>
+<div class="field"><label>Parking / Number of Cars</label><select id="gParking"><option>1 Car</option><option selected>2 Cars</option><option>3 Cars</option><option>4 Cars</option><option>5 Cars</option></select></div>
+<div class="field"><label>Architectural Style</label><select id="gStyle"><option>Modern Minimalist</option><option>Modern Luxury</option><option>Contemporary</option><option>Traditional</option><option>Islamic Modern</option></select></div>
+<div class="field span2"><label>Other Requirements</label><textarea id="gReq" placeholder="Example: drawing room, dining, store, servant room, terrace, lawn, study room, laundry, rooftop garden, separate entrance, etc."></textarea></div>
+</div>
+<button class="gold-btn" id="generateBtn2" style="margin-top:16px">✦ Generate Architecture</button>
+<div class="loading" id="loading2">Generating the measured 2D floor plan first, then the matching realistic 3D house render...</div>
+<div class="result-box" id="result2" style="display:none;margin-top:18px"></div>
+</div>
+</section>
+
+<section class="view" id="gallery"><div class="page-head"><h1>Design <span class="gold">Gallery</span></h1><p>Explore modern elevations, living rooms, bedrooms and kitchens.</p></div><div class="gallery-grid">
+<div class="card"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1100&q=90"><div class="card-body"><h3>Modern Elevation</h3><p>Clean contemporary facade</p></div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1100&q=90"><div class="card-body"><h3>Living Room</h3><p>Elegant modern interior</p></div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1100&q=90"><div class="card-body"><h3>Bedroom</h3><p>Warm luxury bedroom</p></div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1100&q=90"><div class="card-body"><h3>Kitchen</h3><p>Functional premium kitchen</p></div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1100&q=90"><div class="card-body"><h3>Dining</h3><p>Modern dining space</p></div></div>
+<div class="card"><img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1100&q=90"><div class="card-body"><h3>Luxury Villa</h3><p>Premium residential design</p></div></div>
+</div></section>
+
+<section class="view" id="packages"><div class="page-head"><h1>Packages</h1><p>Simple plans in Pakistani Rupees (PKR).</p></div><div class="package-grid">
+<div class="panel package"><h3>Free</h3><div class="price">PKR 0 <small>/ month</small></div><ul><li>3 AI concepts</li><li>Basic architectural planning</li><li>Gallery access</li><li>Community support</li></ul><button class="outline">Current Plan</button></div>
+<div class="panel package featured"><span class="badge">MOST POPULAR</span><h3>Professional</h3><div class="price">PKR 2,999 <small>/ month</small></div><ul><li>50 AI concepts</li><li>Detailed room planning</li><li>Premium design styles</li><li>Priority support</li></ul><button class="gold-btn">Choose Professional</button></div>
+<div class="panel package"><h3>Studio</h3><div class="price">PKR 7,999 <small>/ month</small></div><ul><li>Unlimited concepts</li><li>Advanced workflows</li><li>Commercial projects</li><li>Priority assistance</li></ul><button class="gold-btn">Choose Studio</button></div>
+</div></section>
+
+<section class="view" id="about"><div class="page-head"><h1>About <span class="gold">Archi Generator</span></h1><p>Archi Generator is an AI-powered architectural concept platform designed to help clients, designers and teams turn project requirements into professional preliminary concepts faster.</p></div><div class="info-grid"><div class="panel"><h2>Our Vision</h2><p>Make architectural concept development faster, clearer and more accessible while keeping professional architectural review at the center of the final construction process.</p></div><div class="panel"><h2>Our Promise</h2><p>We focus on practical space planning, circulation, privacy, ventilation, lighting and modern design principles.</p></div></div></section>
+
+<section class="view" id="how"><div class="page-head"><h1>How It <span class="gold">Works</span></h1><p>A simple workflow from client requirements to an AI-generated preliminary concept.</p></div><div class="info-grid">
+<div class="step"><div class="num">1</div><div><h3>Enter Requirements</h3><p>Choose plot size, dimensions, floors, bedrooms, bathrooms, kitchens, parking and style.</p></div></div>
+<div class="step"><div class="num">2</div><div><h3>2D Floor Plan First</h3><p>The layout is planned from the top with room placement, dimensions, doors, windows, stairs and parking.</p></div></div>
+<div class="step"><div class="num">3</div><div><h3>3D Render From Same Layout</h3><p>The realistic house view must follow the same floor-plan arrangement rather than inventing a different layout.</p></div></div>
+<div class="step"><div class="num">4</div><div><h3>Professional Review</h3><p>A licensed architect or engineer should review the concept before construction.</p></div></div>
+</div></section>
+
+<section class="view" id="contact"><div class="page-head"><h1>Contact <span class="gold">Us</span></h1><p>Have a project, partnership or question? Send us a message.</p></div><div class="contact-grid">
+<div class="panel"><h2>Archi Generator</h2><p>Email: muhammadqasimqureshi753@gmail.com<div class="contact-company-phone"><strong>Company Contact Number</strong><br>03073665555</div></p><p>Pakistan · Remote Service</p><p style="margin-top:15px;color:#aaa">We are building a professional AI-assisted architecture workflow for residential and commercial concepts.</p></div>
+<div class="panel"><div class="form-grid"><div class="field"><label>Name</label><input placeholder="Your name"></div><div class="field"><label>Email</label><input placeholder="muhammadqasimqureshi753@gmail.com"></div><div class="field span2"><label>Message</label><textarea placeholder="Tell us about your project..."></textarea></div></div><button class="gold-btn" style="margin-top:15px" onclick="alert('Thank you. Contact form is ready for backend/email integration.')">Send Message</button></div>
+</div></section>
+</main>
+</div>
+
+<div id="signupModal" class="signup-modal-fixed" aria-hidden="true">
+<div class="signup-box-fixed" role="dialog" aria-modal="true" aria-labelledby="signupTitle">
+<button type="button" class="signup-x-fixed" id="signupCloseBtn" aria-label="Close">×</button>
+<h2 id="signupTitle">Create Account</h2><p>Sign up to continue with Archi Generator.</p>
+<form id="signupFormFixed">
+<input id="signupFullNameFixed" type="text" placeholder="Full Name" required>
+<input id="signupUsernameFixed" type="text" placeholder="Username" required>
+<input id="signupEmailFixed" type="email" placeholder="Email Address" required>
+<input id="signupPhoneFixed" type="tel" placeholder="Phone Number" required>
+<input id="signupPasswordFixed" type="password" placeholder="Password" required>
+<input id="signupConfirmFixed" type="password" placeholder="Confirm Password" required>
+<button type="submit">Create Account</button>
+</form><div id="signupStatusFixed" class="signup-status-fixed"></div>
+</div></div>
+
+<script>
+const buttons=[...document.querySelectorAll("[data-view]")];
+const views=[...document.querySelectorAll(".view")];
+function showView(id){views.forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));history.replaceState(null,"","#"+id);window.scrollTo({top:0,behavior:"instant"});document.getElementById("sidebar").classList.remove("open")}
+buttons.forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+document.getElementById("menu").addEventListener("click",()=>document.getElementById("sidebar").classList.toggle("open"));
+const start=location.hash.replace("#","");if(start&&document.getElementById(start))showView(start);
+
+function formData(){
+ return {
+  propertySize:document.getElementById("gSize").value,
+  plotLength:document.getElementById("gLength").value.trim(),
+  plotWidth:document.getElementById("gWidth").value.trim(),
+  floors:document.getElementById("gFloors").value,
+  bedrooms:document.getElementById("gBeds").value,
+  bathrooms:document.getElementById("gBaths").value,
+  kitchens:document.getElementById("gKitchen").value,
+  parking:document.getElementById("gParking").value,
+  style:document.getElementById("gStyle").value,
+  additionalRequirements:document.getElementById("gReq").value.trim()
+ };
+}
+
+function buildArchitectureBrief(d){
+ return `ARCHITECTURAL GENERATION WORKFLOW — FOLLOW THIS ORDER STRICTLY.
+
+USER REQUIREMENTS:
+House/property size: ${d.propertySize}
+Plot length: ${d.plotLength || "Not supplied"} ft
+Plot width: ${d.plotWidth || "Not supplied"} ft
+Number of floors: ${d.floors}
+Bedrooms: ${d.bedrooms}
+Bathrooms: ${d.bathrooms}
+Kitchens: ${d.kitchens}
+Parking: ${d.parking}
+Architectural style: ${d.style}
+Other requirements: ${d.additionalRequirements || "None"}
+
+OUTPUT 1 — PROFESSIONAL 2D FLOOR PLAN FIRST:
+Create the complete architectural floor plan from a top view before creating the 3D render. It must be based strictly on the supplied plot size and plot length/width. Show a complete, coherent layout with proper room placement and circulation. Include room names and numeric dimensions/measurements for rooms and important spaces, doors, windows, stairs, entrances, parking/car spaces, kitchen, bathrooms, living/drawing room and all other requested spaces. The dimensions must be written as actual numbers and must be internally consistent with the plot dimensions. Do not omit the floor plan.
+
+OUTPUT 2 — PROFESSIONAL REALISTIC 3D HOUSE RENDER:
+After the floor plan is established, create a realistic professional architectural house render based on EXACTLY THAT SAME FLOOR PLAN. The 3D design must not invent a different room arrangement. Keep the same number and relative placement of bedrooms, bathrooms, kitchen, stairs, parking, entrances and major spaces. The exterior style should be ${d.style}. Use realistic architectural materials, lighting, landscaping and professional visualization quality.
+
+CRITICAL RULE:
+The 2D floor plan is the source layout. The 3D render must follow it. Do not generate two unrelated designs.
+
+If the API supports structured image output, return these fields:
+floorPlan = the 2D measured top-view floor-plan image
+render3D = the realistic 3D house-render image
+Also return a concise description of the measurements/layout.`;
+}
+
+function addImageSection(container,title,url){
+ const section=document.createElement("div");section.className="result-image-section";
+ const h=document.createElement("h3");h.textContent=title;section.appendChild(h);
+ const img=document.createElement("img");img.src=url;img.alt=title;
+ img.onerror=()=>{section.innerHTML="";const err=document.createElement("div");err.className="result-text";err.textContent=title+" could not be loaded from the returned image URL.";section.appendChild(err)};
+ section.appendChild(img);container.appendChild(section);
+}
+
+async function callAI(data,output,loading){
+ loading.classList.add("show");output.style.display="none";output.innerHTML="";
+ try{
+  const payload={...data,architectureBrief:buildArchitectureBrief(data),outputOrder:["2D measured floor plan","realistic 3D house render"]};
+  const r=await fetch("http://localhost:3000/api/generate-architecture",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+  const j=await r.json();
+  if(!r.ok)throw new Error(j.error||"AI server error");
+
+  const floorPlan=j.floorPlan||j.floor_plan||j.planImage||j.floorPlanImage;
+  const render3D=j.render3D||j.render_3d||j.renderImage||j.render3DImage;
+  if(floorPlan||render3D){
+    if(floorPlan)addImageSection(output,"1. PROFESSIONAL 2D FLOOR PLAN — TOP VIEW",floorPlan);
+    if(render3D)addImageSection(output,"2. PROFESSIONAL REALISTIC 3D HOUSE RENDER — SAME FLOOR PLAN",render3D);
+    const desc=j.description||j.measurements||j.response||j.result;
+    if(desc){const d=document.createElement("div");d.className="result-text";d.textContent=typeof desc==="string"?desc:JSON.stringify(desc,null,2);output.appendChild(d)}
+  }else{
+    const text=j.response||j.result||j.message||"Architecture generated successfully.";
+    const note=document.createElement("div");note.className="result-note";note.textContent="The frontend is ready for the two-image workflow. If the backend returns only text, the backend must be updated to return floorPlan and render3D image outputs.";
+    const body=document.createElement("div");body.className="result-text";body.textContent=typeof text==="string"?text:JSON.stringify(text,null,2);
+    output.appendChild(body);output.appendChild(note);
+  }
+  output.style.display="block";
+ }catch(e){
+  const body=document.createElement("div");body.className="result-text";body.textContent="AI generation could not be completed.\n\n"+e.message+"\n\nCheck that the backend is running on http://localhost:3000 and that Gemini/API access is available.";
+  output.appendChild(body);output.style.display="block";
+ }finally{loading.classList.remove("show")}
+}
+
+document.getElementById("generateBtn2").addEventListener("click",async()=>{
+ const d=formData();
+ if(!d.plotLength||!d.plotWidth){alert("Please enter the plot length and plot width in feet.");return}
+ await callAI(d,document.getElementById("result2"),document.getElementById("loading2"));
+});
+
+(function(){
+ function openSignupFixed(){const m=document.getElementById("signupModal");if(m){m.classList.add("open");m.setAttribute("aria-hidden","false")}}
+ function closeSignupFixed(){const m=document.getElementById("signupModal");if(m){m.classList.remove("open");m.setAttribute("aria-hidden","true")}}
+ document.addEventListener("click",function(e){const el=e.target.closest("a,button");if(!el)return;const label=(el.textContent||"").trim().replace(/\s+/g," ").toLowerCase();if(label==="sign up"||label==="signup"||label.indexOf("sign up")===0){e.preventDefault();e.stopPropagation();openSignupFixed()}},true);
+ document.addEventListener("DOMContentLoaded",function(){
+  const close=document.getElementById("signupCloseBtn"),modal=document.getElementById("signupModal"),form=document.getElementById("signupFormFixed"),status=document.getElementById("signupStatusFixed");
+  if(close)close.addEventListener("click",closeSignupFixed);if(modal)modal.addEventListener("click",e=>{if(e.target===modal)closeSignupFixed()});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")closeSignupFixed()});
+  if(form)form.addEventListener("submit",function(e){e.preventDefault();const p=document.getElementById("signupPasswordFixed").value,c=document.getElementById("signupConfirmFixed").value;if(p!==c){status.textContent="Passwords do not match.";status.style.color="#c62828";return}status.textContent="Account created successfully.";status.style.color="#16833a";form.reset()});
+ });
+})();
+</script>
+</body>
+</html>

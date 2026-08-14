@@ -1,0 +1,28 @@
+{
+  "name": "ai-architecture-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qasimquraishi/AI-Architecture-Generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/qasimquraishi/AI-Architecture-Generator/issues"
+  },
+  "homepage": "https://github.com/qasimquraishi/AI-Architecture-Generator#readme",
+  "dependencies": {
+    "@google/genai": "^2.16.0",
+    "@google/generative-ai": "^0.24.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
+}
