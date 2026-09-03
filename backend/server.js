@@ -2,121 +2,207 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { GoogleGenAI } = require("@google/genai");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(express.json({ limit: "10mb" }));
+app.use(express.json({ limit: "20mb" }));
 
 const apiKey = process.env.GEMINI_API_KEY;
 
-if (!apiKey) {
-    console.error("GEMINI_API_KEY is missing.");
-    process.exit(1);
-}
-
-const genAI = new GoogleGenerativeAI(apiKey);
-
-
-// =====================================
-// HOME
-// =====================================
+const ai = new GoogleGenAI({
+    apiKey: apiKey
+});
 
 app.get("/", (req, res) => {
     res.json({
         success: true,
-        message: "Image Generation Test Server is running!"
+        message: "AI Architecture Backend is working."
     });
 });
 
-
-// =====================================
-// IMAGE GENERATION TEST
-// =====================================
-
 app.get("/api/test-image", async (req, res) => {
-
     try {
 
-        console.log("Starting image generation test...");
-
-        const model = genAI.getGenerativeModel({
-            model: "gemini-3.1-flash-image"
-        });
-
-        const prompt = `
-Generate one professional realistic image of a modern luxury house exterior.
-
-The house should have:
-- Modern architectural design
-- Two floors
-- Large windows
-- Main entrance
-- Front elevation
-- Professional landscaping
-- Realistic materials
-- Daytime lighting
-- High-quality architectural visualization
-
-Generate the IMAGE only.
-`;
-
-        console.log("Sending request to Gemini image model...");
-
-        const result = await model.generateContent(prompt);
-
-        const parts =
-            result.response.candidates?.[0]?.content?.parts || [];
-
-        const imagePart = parts.find(
-            part => part.inlineData && part.inlineData.data
-        );
-
-        if (!imagePart) {
-
-            const textPart = parts.find(
-                part => part.text
-            );
-
-            console.log("Model did not return an image.");
-
+        if (!apiKey) {
             return res.status(500).json({
                 success: false,
-                error: textPart
-                    ? textPart.text
-                    : "The model did not return an image."
+                error: "GEMINI_API_KEY is missing."
             });
         }
 
-        console.log("IMAGE GENERATED SUCCESSFULLY!");
+        const response = await ai.models.generateContent({
+            model: "gemini-3.1-flash-image",
+            contents: `
+Generate a professional realistic architectural image
+of a modern luxury two-storey house.
+
+Include:
+- modern front elevation
+- large windows
+- premium materials
+- realistic lighting
+- landscaping
+- driveway
+- professional architectural visualization
+
+Return an actual image.
+`,
+            config: {
+                responseModalities: ["IMAGE", "TEXT"]
+            }
+        });
+
+        const parts =
+            response.candidates?.[0]?.content?.parts || [];
+
+        let imageData = null;
+        let mimeType = "image/png";
+        let text = "";
+
+        for (const part of parts) {
+
+            if (part.text) {
+                text += part.text;
+            }
+
+            if (part.inlineData?.data) {
+                imageData = part.inlineData.data;
+                mimeType =
+                    part.inlineData.mimeType || "image/png";
+            }
+        }
+
+        if (!imageData) {
+            return res.status(500).json({
+                success: false,
+                error:
+                    text ||
+                    "Gemini did not return an image."
+            });
+        }
 
         res.json({
             success: true,
-            message: "Image generation is working!",
-            mimeType: imagePart.inlineData.mimeType,
-            image: imagePart.inlineData.data
+            image:
+                `data:${mimeType};base64,${imageData}`,
+            mimeType: mimeType
         });
 
     } catch (error) {
 
-        console.error("IMAGE GENERATION ERROR:");
         console.error(error);
 
         res.status(500).json({
             success: false,
-            error: error.message
+            error:
+                error.message ||
+                "Image generation failed."
+        });
+require("dotenv").config();
+
+const express = require("express");
+const cors = require("cors");
+const { GoogleGenAI } = require("@google/genai");
+
+const app = express();
+
+app.use(cors());
+app.use(express.json({ limit: "20mb" }));
+
+const apiKey = process.env.GEMINI_API_KEY;
+
+const ai = new GoogleGenAI({
+    apiKey: apiKey
+});
+
+app.get("/", (req, res) => {
+    res.json({
+        success: true,
+        message: "AI Architecture Backend is working."
+    });
+});
+
+app.get("/api/test-image", async (req, res) => {
+    try {
+
+        if (!apiKey) {
+            return res.status(500).json({
+                success: false,
+                error: "GEMINI_API_KEY is missing."
+            });
+        }
+
+        const response = await ai.models.generateContent({
+            model: "gemini-3.1-flash-image",
+            contents: `
+Generate a professional realistic architectural image
+of a modern luxury two-storey house.
+
+Include:
+- modern front elevation
+- large windows
+- premium materials
+- realistic lighting
+- landscaping
+- driveway
+- professional architectural visualization
+
+Return an actual image.
+`,
+            config: {
+                responseModalities: ["IMAGE", "TEXT"]
+            }
+        });
+
+        const parts =
+            response.candidates?.[0]?.content?.parts || [];
+
+        let imageData = null;
+        let mimeType = "image/png";
+        let text = "";
+
+        for (const part of parts) {
+
+            if (part.text) {
+                text += part.text;
+            }
+
+            if (part.inlineData?.data) {
+                imageData = part.inlineData.data;
+                mimeType =
+                    part.inlineData.mimeType || "image/png";
+            }
+        }
+
+        if (!imageData) {
+            return res.status(500).json({
+                success: false,
+                error:
+                    text ||
+                    "Gemini did not return an image."
+            });
+        }
+
+        res.json({
+            success: true,
+            image:
+                `data:${mimeType};base64,${imageData}`,
+            mimeType: mimeType
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            success: false,
+            error:
+                error.message ||
+                "Image generation failed."
         });
     }
-
 });
 
-
-// =====================================
-// START SERVER
-// =====================================
-
-app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Image test server running on port ${PORT}`);
-});
+module.exports = app;
