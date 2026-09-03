@@ -9,9 +9,9 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "20mb" }));
 
-// ===============================
-// HEALTH CHECK
-// ===============================
+// =====================================
+// HOME / HEALTH CHECK
+// =====================================
 
 app.get("/", (req, res) => {
     res.json({
@@ -20,14 +20,13 @@ app.get("/", (req, res) => {
     });
 });
 
-// Prevent favicon request from causing confusion
 app.get("/favicon.ico", (req, res) => {
     res.status(204).end();
 });
 
-// ===============================
-// IMAGE GENERATION
-// ===============================
+// =====================================
+// IMAGE GENERATION FUNCTION
+// =====================================
 
 async function generateImage(req, res) {
     try {
@@ -40,37 +39,103 @@ async function generateImage(req, res) {
             });
         }
 
-        // Create Gemini client ONLY when this route is called
         const ai = new GoogleGenAI({
             apiKey: apiKey
         });
 
-        const userPrompt =
-            req.body?.prompt ||
-            req.body?.additionalRequirements ||
+        const {
+            propertySize,
+            plotLength,
+            plotWidth,
+            floors,
+            bedrooms,
+            bathrooms,
+            kitchens,
+            parking,
+            style,
+            additionalRequirements,
+            architectureBrief,
+            prompt
+        } = req.body || {};
+
+        const finalPrompt =
+            prompt ||
+            architectureBrief ||
             `
-Create a professional realistic architectural image
-of a modern luxury two-storey residence.
+You are a professional architectural visualization AI.
 
-Requirements:
-- professional architectural visualization
-- realistic materials
-- realistic lighting
-- premium front elevation
-- large windows
-- driveway
-- landscaping
-- highly detailed
-- photorealistic
+Create an ACTUAL ARCHITECTURAL IMAGE based on these client requirements.
 
-Return an actual image.
+Property Size:
+${propertySize || "Not specified"}
+
+Plot Length:
+${plotLength || "Not specified"} feet
+
+Plot Width:
+${plotWidth || "Not specified"} feet
+
+Floors:
+${floors || "Not specified"}
+
+Bedrooms:
+${bedrooms || "Not specified"}
+
+Bathrooms:
+${bathrooms || "Not specified"}
+
+Kitchens:
+${kitchens || "Not specified"}
+
+Parking:
+${parking || "Not specified"}
+
+Architectural Style:
+${style || "Modern Luxury"}
+
+Additional Requirements:
+${additionalRequirements || "None"}
+
+IMPORTANT OUTPUT REQUIREMENTS:
+
+Create a professional architectural image.
+
+The primary image should be a clean architectural 2D top-view floor plan concept.
+
+Include where appropriate:
+- plot boundaries
+- room labels
+- bedrooms
+- bathrooms
+- kitchen
+- living room
+- drawing room
+- dining area
+- stairs
+- parking
+- doors
+- windows
+- room proportions
+- clear architectural layout
+- dimensions where possible
+
+Professional architectural drafting presentation.
+Clean white background.
+Precise lines.
+Readable room labels.
+No unrelated decorative artwork.
+
+The design must respect the client's requirements.
+
+RETURN AN ACTUAL IMAGE.
+Do not return only text.
 `;
 
         console.log("Starting Gemini image generation...");
 
         const response = await ai.models.generateContent({
             model: "gemini-3.1-flash-image",
-            contents: userPrompt,
+            contents: finalPrompt,
             config: {
                 responseModalities: ["IMAGE", "TEXT"]
             }
@@ -88,10 +153,12 @@ Return an actual image.
                 textResponse += part.text;
             }
 
-            if (part.inlineData?.data) {
+            if (part.inlineData && part.inlineData.data) {
                 imageData = part.inlineData.data;
-                mimeType =
-                    part.inlineData.mimeType || "image/png";
+
+                if (part.inlineData.mimeType) {
+                    mimeType = part.inlineData.mimeType;
+                }
             }
         }
 
@@ -104,12 +171,28 @@ Return an actual image.
             });
         }
 
+        const imageUrl =
+            `data:${mimeType};base64,${imageData}`;
+
+        console.log("Image generated successfully.");
+
         return res.json({
             success: true,
-            image: `data:${mimeType};base64,${imageData}`,
-            floorPlan: `data:${mimeType};base64,${imageData}`,
+
+            // Generic image field
+            image: imageUrl,
+
+            // Your existing frontend looks for this
+            floorPlan: imageUrl,
+
+            // Currently only one image is generated
+            render3D: null,
+
             mimeType: mimeType,
-            message: textResponse
+
+            description:
+                textResponse ||
+                "Architectural image generated successfully."
         });
 
     } catch (error) {
@@ -125,10 +208,19 @@ Return an actual image.
     }
 }
 
-// Your frontend previously called this endpoint
-app.post("/api/generate-image", generateImage);
+// =====================================
+// API ROUTES
+// =====================================
 
-// Keep this endpoint too
+// This is the endpoint your architecture frontend uses
+app.post("/api/generate-architecture", generateImage);
+
+// Keep these available for testing/compatibility
+app.post("/api/generate-image", generateImage);
 app.post("/api/test-image", generateImage);
+
+// =====================================
+// EXPORT FOR VERCEL
+// =====================================
 
 module.exports = app;
